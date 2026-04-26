@@ -1,56 +1,46 @@
-function Add() {
-let v1 = Number(document.getElementById("value1").value);
-let v2 = Number(document.getElementById("value2").value);
-document.getElementById("display").innerText = v1 + v2;
+function getValues(){
+let v1=Number(document.getElementById("value1").value);
+let v2=Number(document.getElementById("value2").value);
+return[v1,v2];
 }
 
-function Sub() {
-let v1 = Number(document.getElementById("value1").value);
-let v2 = Number(document.getElementById("value2").value);
-document.getElementById("display").innerText = v1 - v2;
+function Add(){
+let[v1,v2]=getValues();
+document.getElementById("display").innerText=v1+v2;
 }
 
-function Mul() {
-let v1 = Number(document.getElementById("value1").value);
-let v2 = Number(document.getElementById("value2").value);
-document.getElementById("display").innerText = v1 * v2;
+function Sub(){
+let[v1,v2]=getValues();
+document.getElementById("display").innerText=v1-v2;
 }
 
-function Div() {
-let v1 = Number(document.getElementById("value1").value);
-let v2 = Number(document.getElementById("value2").value);
-
-if (v2 === 0) {
-    document.getElementById("display").innerText = "Cannot divide by zero";
-} else {
-    document.getElementById("display").innerText = v1 / v2;
+function Mul(){
+let[v1,v2]=getValues();
+document.getElementById("display").innerText=v1*v2;
 }
 
-
+function Div(){
+let[v1,v2]=getValues();
+document.getElementById("display").innerText=v2===0?"Error":v1/v2;
 }
 
-// Floating symbols animation
-const symbols = document.querySelectorAll(".symbol");
+const symbols=document.querySelectorAll(".symbol");
 
-symbols.forEach(symbol => {
-let x = Math.random() * window.innerWidth;
-let y = Math.random() * window.innerHeight;
+symbols.forEach(s=>{
+let x=Math.random()*innerWidth;
+let y=Math.random()*innerHeight;
+let dx=(Math.random()*2+1)*(Math.random()<0.5?-1:1);
+let dy=(Math.random()*2+1)*(Math.random()<0.5?-1:1);
 
-let dx = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? -1 : 1);
-let dy = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? -1 : 1);
+function move(){
+x+=dx;
+y+=dy;
 
-function move() {
-    x += dx;
-    y += dy;
+if(x<=0||x>=innerWidth-20)dx*=-1;
+if(y<=0||y>=innerHeight-20)dy*=-1;
 
-    if (x <= 0 || x >= window.innerWidth - 30) dx *= -1;
-    if (y <= 0 || y >= window.innerHeight - 30) dy *= -1;
-
-    symbol.style.transform = `translate(${x}px, ${y}px)`;
-    requestAnimationFrame(move);
+s.style.transform=`translate(${x}px,${y}px)`;
+requestAnimationFrame(move);
 }
-
 move();
-
-
 });
